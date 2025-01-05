@@ -1,0 +1,144 @@
+/* General Navbar Styling */
+.modern-navbar {
+    background: linear-gradient(90deg, #1a1a2e, #16213e); /* Dark gradient background */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    padding: 15px 20px; /* Spacing */
+   /* border-radius: 8px;  Rounded edges */
+}
+
+/* Navbar Brand */
+.modern-navbar .navbar-brand {
+    color: #fff; /* White text */
+    font-size: 1.8rem; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    text-transform: uppercase; /* Uppercase letters */
+    letter-spacing: 1px; /* Spaced letters */
+}
+
+/* Navbar Links */
+.modern-navbar .nav-link {
+    color: #ddd; /* Soft white */
+    margin-right: 15px; /* Spacing between links */
+    font-size: 1rem;
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+
+/* Active Link */
+.modern-navbar .nav-link.active {
+    color: #4FC3F7; /* Light blue */
+    font-weight: bold; /* Bold active link */
+}
+
+/* Hover Effects */
+.modern-navbar .nav-link:hover {
+    color: #4FC3F7; /* Light blue */
+    transform: scale(1.05); /* Slightly larger */
+    text-decoration: none; /* No underline */
+}
+
+/* Toggler (Hamburger Menu) */
+.navbar-toggler {
+    border: none; /* Remove border */
+    outline: none; /* Remove outline */
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ddd' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255,255,255,0.7)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Responsive Behavior */
+@media (max-width: 992px) {
+    .modern-navbar {
+        padding: 10px 15px; /* Adjust spacing for smaller screens */
+    }
+
+    .modern-navbar .nav-link {
+        margin-right: 0; /* Remove margin for stacked links */
+        padding: 10px; /* Add padding for touch-friendly design */
+    }
+}
+
+/* Hero Section */
+.hero-section {
+    background-color: #ffffff; /* White background */
+    padding: 60px 0;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #1a1a2e;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+
+
+.btn-primary {
+    background-color: #512da8;
+    color: #fff;
+    font-size: 12px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #8e58c3;
+}
+
+
+/* Features Section */
+.features-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.feature-box {
+    background-color: #fff;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.feature-box:hover {
+    transform: translateY(-10px);
+}
+
+
+/* Call-to-Action Section */
+
+
+.cta-box {
+    background: linear-gradient(90deg, #1a1a2e, #16213e);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+}
+
+.cta-box h2 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.cta-box .btn-light {
+    color: #000;
+    font-weight: bold;
+    border: none;
+}
+
+
+/* Footer */
+.footer {
+    background-color: #1a1a2e;
+}
+
+
