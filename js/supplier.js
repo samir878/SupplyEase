@@ -26,53 +26,72 @@ const db = getFirestore();
 
 
 // Add a new product
-onAuthStateChanged(auth, async (user) => {
+document.getElementById("product-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  // Get form data
+  const name = document.getElementById("name").value.trim();
+  const description = document.getElementById("description").value.trim();
+  const price = parseFloat(document.getElementById("price").value);
+  const category = document.getElementById("productCategory").value;
+  const location = document.getElementById("location").value.trim();
+  const stock = parseInt(document.getElementById("stock").value);
+  // const rating = parseInt(document.getElementById("rating").value);
+
+  // Check if a user is logged in
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
       const supplierId = user.uid;
-      console.log("Supplier ID:", supplierId);
-      
-      const productForm = document.getElementById('product-form');
-    productForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
+      const productData = {
+        name,
+        description,
+        price,
+        category,
+        location,
+        stock,
+        //rating,
+        supplierId,
+        createdAt: serverTimestamp(),
+        imageUrl: null, // Placeholder for an image URL
+      };
 
-      const name = document.getElementById('name').value.trim();
-      const description = document.getElementById('description').value.trim();
-      const price = parseFloat(document.getElementById('price').value);
-      const category = document.getElementById('category').value.trim();
-      const location = document.getElementById('location').value.trim();
-      const stock = parseInt(document.getElementById('stock').value);
-      const rating = parseInt(document.getElementById('rating').value);
-
-      // Check for valid data
-      if (!name || !description || !category || !location || !stock || !rating) {
-        alert('Please fill in all fields');
-        return;
-      }
-  
       try {
-        // Add product to "products" collection under the logged-in supplier
-        const productData = {
-            name,
-            description,
-            price,
-            category,
-            location,
-            stock,
-            rating,
-            supplierId,
-          createdAt: serverTimestamp(),
-        };
-  
-        const productsCollectionRef = collection(db, "products");
-        await addDoc(productsCollectionRef, productData);
-  
-        console.log("Product added successfully!");
+        // 1. Add product to the supplier's subcollection
+        const supplierProductsRef = collection(
+          db,
+          "suppliers",
+          supplierId,
+          "products"
+        );
+        const productDoc = await addDoc(supplierProductsRef, productData);
+
+        // 2. Add product to the category's subcollection
+        const categoryProductsRef = collection(
+          db,
+          "categories",
+          category,
+          "products"
+        );
+        await setDoc(doc(categoryProductsRef, productDoc.id), productData);
+
+        // 3. Add product to the global "products" collection
+        const globalProductsRef = collection(db, "products");
+        await setDoc(doc(globalProductsRef, productDoc.id), productData);
+
+                  document.getElementById("name").value='';
+                  document.getElementById("description").value='';
+                 document.getElementById("price").value='';
+                //  document.getElementById("productCategory").value='';
+                  document.getElementById("location").value='';
+                    document.getElementById("stock").value='';
+                  //  document.getElementById("rating").value='';
+        alert("Product added successfully!");
       } catch (error) {
-        console.error("Error adding product: ", error);
+        console.error("Error adding product:", error);
+        alert("Failed to add product. Please try again.");
       }
-    });
     } else {
-      console.log("No user logged in. Redirecting to login page.");
-      window.location.href = "Connect.html"; // Redirect to login page
+      alert("You must be logged in to add a product.");
     }
   });
+});

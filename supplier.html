@@ -19,8 +19,15 @@
       <label for="price">Price:</label>
       <input type="number" id="price" step="0.01" required><br><br>
   
-      <label for="category">Category:</label>
-      <input type="text" id="category" required><br><br>
+      <label for="productCategory">Category:</label>
+      <select id="productCategory" required>
+      <option value="Meat">Meat</option>
+      <option value="Seafood">Seafood</option>
+      <option value="Vegetables ">Vegetables </option>
+      <option value="Desserts">Desserts</option>
+      <option value="Drinks">Drinks</option>
+     
+      </select>
   
       <label for="location">Location:</label>
       <input type="text" id="location" required><br><br>
@@ -28,8 +35,7 @@
       <label for="stock">Stock:</label>
       <input type="number" id="stock" required><br><br>
   
-      <label for="rating">Rating (1-5):</label>
-      <input type="number" id="rating" min="1" max="5" required><br><br>
+     
   
       <button type="submit">Add Product</button>
     </form>
