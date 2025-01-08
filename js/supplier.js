@@ -2,7 +2,7 @@
  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
  import { getAuth, onAuthStateChanged ,createUserWithEmailAndPassword,signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
- import{getFirestore ,addDoc,collection,serverTimestamp ,setDoc,doc} from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+ import{getFirestore ,addDoc,collection,serverTimestamp ,setDoc,doc,getDocs,query,where} from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
  // TODO: Add SDKs for Firebase products that you want to use
  // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -95,3 +95,82 @@ document.getElementById("product-form").addEventListener("submit", async (e) => 
     }
   });
 });
+
+
+//get data
+
+
+
+const cardContainer = document.getElementById("cardContainer");
+
+// Function to display products as cards
+function displayProductsAsCards(results) {
+  // Clear existing cards
+  cardContainer.innerHTML = "";
+
+  results.forEach((supplier) => {
+    const supplierHeader = document.createElement("h2");
+    supplierHeader.textContent = `Supplier: ${supplier.supplierName}`;
+    cardContainer.appendChild(supplierHeader);
+
+    supplier.products.forEach((product) => {
+      // Create card element
+      const card = document.createElement("div");
+      card.className = "card";
+
+      // Add product details to the card
+      card.innerHTML = `
+        <h3>${product.name}</h3>
+        <p><strong>Description:</strong> ${product.description}</p>
+        <p><strong>Category:</strong> ${product.category}</p>
+        <p><strong>Price:</strong> <span class="price">€${product.price.toFixed(2)}</span></p>
+        <p><strong>Stock:</strong> ${product.stock}</p>
+      `;
+
+      // Append card to container
+      cardContainer.appendChild(card);
+    });
+  });
+}
+
+// Function to get products for each supplier filtered by category
+async function getProductsByCategory(category) {
+  try {
+    //const suppliersRef = collection(db, "suppliers");
+   // const suppliersSnap = await getDocs(suppliersRef);
+
+    const results = [];
+
+    for (const supplierDoc of suppliersSnap.docs) {
+      
+      const supplierId = supplierDoc.id;
+      const supplierData = supplierDoc.data();
+
+      // Access the products subcollection for the supplier
+      const productsRef = collection(db, `suppliers/${supplierId}/products`);
+      const productsQuery = query(productsRef, where("category", "==", category));
+      const productsSnap = await getDocs(productsQuery);
+
+      const products = productsSnap.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      results.push({
+        supplierId,
+        supplierName: supplierData.name, // Assuming "name" field exists for suppliers
+        products,
+      });
+    }
+
+    // Display products as cards
+    displayProductsAsCards(results);
+    console.log(results.products)
+  } catch (error) {
+    console.error("Error fetching products by category:", error);
+  }
+}
+
+// Usage
+const categoryToFilter = "Meat"; // Replace with your desired category
+getProductsByCategory(categoryToFilter);
