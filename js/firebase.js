@@ -156,7 +156,7 @@ document.getElementById('sign_in').addEventListener("click", async (event) => {
         if (userData.accountType === 'supplier') {
             window.location.href = "supplier.html";
         } else if (userData.accountType === 'client') {
-            window.location.href = "signUp.html";
+            window.location.href = "client.html";
         } else {
             console.error("Invalid account type");
         }

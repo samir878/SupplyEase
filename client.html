@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client View</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+h1 {
+  margin: 0;
+}
+
+.filter-container {
+  margin: 1rem;
+  text-align: center;
+}
+
+.filter-container label {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+.filter-container select {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.card h3 {
+  margin: 0.5rem 0;
+}
+
+.card p {
+  margin: 0.5rem 0;
+}
+
+.card .price {
+  color: #28a745;
+  font-weight: bold;
+}
+.card .connect-btn {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 8px;
+  }
+  .card .connect-btn:hover {
+    background-color: #0056b3;
+  }
+
+  </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg modern-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">SupplyEase</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                 
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Loge out </a>
+                   
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+  <main>
+    <div class="filter-container">
+      <label for="categoryFilter">Filter by Category:</label>
+      <select id="categoryFilter">
+        <option value="">All Categories</option>
+        <option value="Meat">Meat and Poultry</option>
+        <option value="Seafood">Seafood</option>
+        <option value="Dairy">Dairy</option>
+        <option value="Vegetables">Vegetables</option>
+        <option value="Fruits">Fruits</option>
+        <option value="Drinks">Drinks</option>
+      </select>
+    </div>
+    <div id="productContainer" class="card-container"></div>
+  </main>
+  <script type="module" src="js/client.js"></script>
+</body>
+</html>
